@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    border: 2px solid blue;    
+    border: 2px solid lightblue;    
 }
 
 .tblhead{
@@ -12,7 +12,40 @@
 }
 
 .table > div {
-    border: 1px solid black;
+    border: 1px solid lightblue;
     align-self: center;
     padding: 10px 10px;
+}
+
+.controls{
+    position: relative;
+    left: 75%;
+    padding: 20px 0px;
+}
+
+.addnew{
+    visibility: hidden;
+    display: grid;
+    gap: 20px;
+    font-size: 24px;
+    align-self: center;
+    position: absolute;
+    left: 10%;
+    border: 2px solid lightblue;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: lightblue;
+    
+}
+
+.input{
+    display: grid;
+    width: 500px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.subbutton{
+    width: 75px;
+    display: flex;
+    gap: 20px;
 }
