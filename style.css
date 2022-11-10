@@ -1,13 +1,13 @@
 .table{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns:3fr 2fr 1fr 1fr 1fr;
+    grid-auto-rows: auto;
     border: 2px solid lightblue;    
+    margin: 50px;
 }
 
 .tblhead{
     font-weight: 700;
-    
     text-align: center;
 }
 
