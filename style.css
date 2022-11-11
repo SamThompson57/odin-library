@@ -4,6 +4,7 @@
     grid-auto-rows: auto;
     border: 2px solid lightblue;    
     margin: 50px;
+    gap: 1px;
 }
 
 .tblhead{
@@ -12,9 +13,19 @@
 }
 
 .table > div {
-    border: 1px solid lightblue;
     align-self: center;
     padding: 10px 10px;
+    background-color: white;
+}
+
+.table > img{
+    margin: auto;
+    background-color: white;
+}
+
+.table > img :hover{
+    color: aqua;
+    cursor: grab;
 }
 
 .controls{

@@ -13,25 +13,48 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(name) {
-    const id = myLibrary.length;
+    const id = myLibrary.length - 1;
     console.log(name)
     //ADD A LOOP THAT ITERATES THROUGH ALL ELEMENTS OF OBJECT
     for(let prop in name){
-        const create = document.createElement('div');
-        create.setAttribute('id', id);
-        create.setAttribute('class', prop)
-        create.textContent = name[prop];
-        table.appendChild(create);
+        if(prop == 'read'){
+            const create = document.createElement('img')
+            console.log('read' + name[prop]);
+            create.setAttribute('id',prop+id);
+            create.setAttribute('class', 'row'+id)
+            console.log(create)
+            create.onclick = () => haveRead(id);
+            if (name[prop] === true){
+                create.setAttribute('src', '/icons/check-circle.png')
+                table.appendChild(create);
+            } else {
+                create.setAttribute('src', '/icons/checkbox-blank-circle-outline.png')
+                table.appendChild(create);
+            }
+            
+        }else {
+            const div = document.createElement('div')
+            div.textContent = name[prop];
+            table.appendChild(div);
+            console.log(prop)
+            div.setAttribute('id', id + prop);
+            div.setAttribute('class', 'row'+id);
+        }
+        
+        
+        
     }
-    const remove = document.createElement('div');
-    remove.setAttribute('id', id);
-    remove.setAttribute('class', 'del');
-    remove.textContent = "Delete Line"
+         
+    const remove = document.createElement('img');
+    remove.setAttribute('id', id + 'del');
+    remove.setAttribute('class', 'row'+id);
+    remove.setAttribute('src', '/icons/close-box.png')
+    remove.onclick = () => removeRow(id)
     table.appendChild(remove);
 }
 
 
-const theHobbit = new Book("The Hobbit", "J.R.R. Tolkein", 295, false)
+const theHobbit = new Book("The Hobbit", "J.R.R. Tolkein", 295, true)
 
 let isBoxSpawned = false;
 const addNew = document.querySelector('.newbook');
@@ -57,14 +80,14 @@ function spawnBox(){
     }
 }
 
-//Section to take whater is in the 
+//Section to take whater is in the form
 
 const formTitle = document.querySelector("#book_title");
 const formAuthor = document.querySelector("#author");
 const formPages = document.querySelector("#pages");
 const formRead = document.querySelector("#read");
 const submitBtn = document.querySelector("#submit");
-//console.log(`Title = ${formTitle.value} Author = ${formAuthor.value}`)
+
 function formSubmit(){
      new Book(formTitle.value, formAuthor.value, formPages.value, formRead.checked)
      formTitle.value = "" ;
@@ -73,4 +96,25 @@ function formSubmit(){
      formRead.checked = false;
 
 }
-   
+
+function haveRead(id){
+    const readTarget = document.querySelector(`#read${id}`)
+    console.log(typeof myLibrary[id].read)
+    console.log(myLibrary[id].read)
+    if(Boolean(myLibrary[id].read) === true){
+        console.log("True => False")
+        myLibrary[id].read = false;
+        readTarget.setAttribute('src', '/icons/checkbox-blank-circle-outline.png')
+    }else{
+        console.log("False => True")
+        myLibrary[id].read = true; 
+        readTarget.setAttribute('src', '/icons/check-circle.png')
+    }
+    
+}
+
+function removeRow(id){
+    const delTarget = document.querySelectorAll(`.row${id}`)
+    console.log(delTarget)
+    delTarget.forEach(element => element.remove());
+}
