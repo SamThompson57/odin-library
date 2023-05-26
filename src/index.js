@@ -3,8 +3,21 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { 
+    getFirestore, 
+    collection, 
+    getDocs,
+    doc, 
+    query, 
+    orderBy, 
+    Timestamp,
+    onSnapshot
+} from 'firebase/firestore';
 import Book from "./book";
+import removeRow from "./removeRow";
+import addBookToLibrary from "./addBookToLibrary";
+import displayBooks from "./displayBooks";
+import getImage from "./getImage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,11 +37,29 @@ const db = getFirestore(app);
 // This should be pulled from the DB
 export let myLibrary = [];
 
+function loadLibrary(){
+    // Create a query to load all books in the library
+    const libraryQuery = query(collection(getFirestore(), 'books'), orderBy('timestamp'));
+
+    // Listen for any updates
+    onSnapshot(libraryQuery, function(snapshot){
+        snapshot.docChanges().forEach(function(change){
+            if (change.type === 'removed') {
+                removeRow(change.doc.id);
+            } else {
+                let message = change.doc.data()
+                displayBooks(change.doc.id, message.author, message.pages, message.read, message.title)
+            }
+        })
+    })
+
+}
+
 export const table = document.querySelector('.table');
 
-// The Below is a sample book, this could be REMOVED
-const theHobbit = new Book("The Hobbit", "J.R.R. Tolkein", 295, true)
-
+export const checkCircle = await getImage('check-circle.png')
+export const blankCircle = await getImage('checkbox-blank-circle-outline.png')
+export const closeBox = await getImage('close-box.png')
 
 // This is the button that will toggle the form from sight
 let isBoxSpawned = false;
@@ -80,5 +111,6 @@ function formSubmit(){
 
 }
 
+loadLibrary()
 
 // FUNCTION TO DELETE FROM Firestore DB

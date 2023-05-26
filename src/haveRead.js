@@ -1,18 +1,22 @@
-import { myLibrary } from "."
+import { collection, doc, getDoc, getFirestore, updateDoc, } from "firebase/firestore";
 
-function haveRead(id){
-    const readTarget = document.querySelector(`#read${id}`)
-    console.log(typeof myLibrary[id].read)
-    console.log(myLibrary[id].read)
-    if(Boolean(myLibrary[id].read) === true){
-        console.log("True => False")
-        myLibrary[id].read = false;
-        readTarget.setAttribute('src', '/icons/checkbox-blank-circle-outline.png')
-    }else{
-        console.log("False => True")
-        myLibrary[id].read = true; 
-        readTarget.setAttribute('src', '/icons/check-circle.png')
-    }
+async function haveRead(id){
+    console.log('Querying with firebase')
+    const docRef =  doc(collection(getFirestore(), 'books'), id)
+    
+    const docSnap = await getDoc(docRef)
+
+    console.log(docSnap)
+
+    if (docSnap.data().read) {
+        await updateDoc(docRef, {
+            read: false
+        })
+    } else {
+        await updateDoc(docRef, {
+            read: true
+        })
+      }
     
 }
 

@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "firebase": "^9.22.0"
+    "firebase": "^9.22.0",
+    "uniqid": "^5.4.0"
   },
   "devDependencies": {
     "webpack": "^5.84.0",
