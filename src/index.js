@@ -18,16 +18,9 @@ import removeRow from "./removeRow";
 import addBookToLibrary from "./addBookToLibrary";
 import displayBooks from "./displayBooks";
 import getImage from "./getImage";
-
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBlgFkKoQtM93-w7Lalyr1NKkI0L1Y6_5A",
-  authDomain: "odin-library-b02bc.firebaseapp.com",
-  projectId: "odin-library-b02bc",
-  storageBucket: "odin-library-b02bc.appspot.com",
-  messagingSenderId: "918579761340",
-  appId: "1:918579761340:web:0a2d6195f5d0392b9e00b9"
-};
+import firebaseConfig from "./firebaseConfig";
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
